@@ -11,9 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 # pylint: disable=too-few-public-methods
-
 """
 Test Factory to make fake objects for testing
 """
@@ -27,8 +25,12 @@ class ProductFactory(factory.Factory):
 
     class Meta:
         """Maps factory to data model"""
-
         model = Product
 
     id = factory.Sequence(lambda n: n)
-   ## Add code to create Fake Products 
+    name = factory.Faker("word")
+    description = factory.Faker("text", max_nb_chars=250)
+    price = FuzzyDecimal(0.5, 2000.0, precision=2)
+    available = FuzzyChoice(choices=[True, False])
+    category = FuzzyChoice(choices=[Category.CLOTHS, Category.FOOD, Category.HOUSEWARES, Category.AUTOMOTIVE, Category.TOOLS, Category.UNKNOWN])
+   
